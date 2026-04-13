@@ -1,8 +1,25 @@
 package main
 
-import "strings"
+import (
+	"fmt"
+	"os"
+	"strings"
+)
 
-func GetASCIIArt(input string, lines []string) string {
+func GetASCIIArt(input string, font string) string {
+
+	if font != "standard" && font != "shadow" && font != "thinkertoy" {
+		fmt.Println("Invalid font")
+		return ""
+	}
+
+	file, err := os.ReadFile("fonts/" + font + ".txt")
+
+	if err != nil {
+		fmt.Println("Error reading banner file")
+		return ""
+	}
+	lines := strings.Split(string(file), "\n")
 
 	// convert escaped \n into real newlines
 	input = strings.ReplaceAll(input, "\\n", "\n")
@@ -15,7 +32,7 @@ func GetASCIIArt(input string, lines []string) string {
 	// loop through each line of input
 	for _, line := range linesInput {
 
-		// ✅ FIX: handle empty lines properly
+		// handle empty lines properly
 		if line == "" {
 			output.WriteString("\n")
 			continue
@@ -50,3 +67,39 @@ func GetASCIIArt(input string, lines []string) string {
 
 	return output.String()
 }
+
+/*
+what this function actually does in real life terms.
+
+1. CHECK IF FONT IS VALID
+
+2. READ THE FONT FILE
+
+4. SPLIT FILE INTO LINES
+
+5.HANDLE "\n" FROM INPUT using strings.RepalaceAll replacing all \\n with actual \n
+
+6. SET HEIGHT
+
+7. PREPARE OUTPUT
+
+8. SPLIT INPUT INTO LINES
+
+9. LOOP EACH LINE
+
+10. LOOP ROWS (VERY IMPORTANT)
+
+11. LOOP EACH CHARACTER
+
+12. FIND CHARACTER IN FILE
+index := (int(char) - 32) * 9
+
+13. GET THE CORRECT ROW
+output.WriteString(lines[index+i+1])
+
+14. AFTER EACH ROW
+output.WriteString("\n")
+
+15. FINAL STEP
+return output.String()
+*/

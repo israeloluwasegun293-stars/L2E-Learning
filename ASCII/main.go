@@ -3,24 +3,20 @@ package main
 import (
 	"fmt"
 	"os"
-	"strings"
 )
 
 func main() {
 
 	arg := "Invalid number of arguements!"
-	if len(os.Args) != 2 {
+	if len(os.Args) != 3 {
 		fmt.Println(arg)
 		return
 	}
 
 	input := os.Args[1]
+	font := os.Args[2]
 
-	file, _ := os.ReadFile("standard.txt")
-
-	line := strings.Split(string(file), "\n")
-
-	art := GetASCIIArt(input, line)
+	art := GetASCIIArt(input, font)
 
 	fmt.Print(art)
 }
