@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"strings"
+
+	ascii "github.com/israeloluwasegun293-stars/Internal/Ascii"
 )
 
 func main() {
@@ -24,4 +26,11 @@ func main() {
 	text := os.Args[3]
 
 	fmt.Println(color, substring, text)
+
+	art := ascii.NewAsciiArt("Banner-file/shadow.txt",)
+	err := art.Load()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 }
